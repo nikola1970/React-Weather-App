@@ -1,5 +1,5 @@
 var React = require("react");
-require("./css/InputComponent.scss");
+
 
 var InputComponent = React.createClass({
 
@@ -11,7 +11,13 @@ var InputComponent = React.createClass({
 
 		this.refs.location.value = "";
 
-		this.props.onSearch(location);
+		if (location.trim().length > 1) {
+			this.props.onSearch(location);
+		} else {
+			alert("You have to enter city name");
+		}
+
+		
 	},
 
 	render: function(){

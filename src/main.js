@@ -1,7 +1,8 @@
-const React = require("react");
-const ReactDOM = require("react-dom");
-
+var React = require("react");
+var ReactDOM = require("react-dom");
 var SearchComponent = require("./SearchComponent");
+
+require("./css/styles.scss");
 
 
 var App = React.createClass({

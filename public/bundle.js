@@ -48,8 +48,9 @@
 
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(32);
-
 	var SearchComponent = __webpack_require__(178);
+
+	__webpack_require__(211);
 
 	var App = React.createClass({
 		displayName: "App",
@@ -21514,8 +21515,8 @@
 
 		getInitialState: function getInitialState() {
 			return {
-				location: "Beograd",
-				temp: 40
+				location: "",
+				temp: ""
 			};
 		},
 
@@ -21538,16 +21539,22 @@
 			    temp = _state.temp;
 
 
+			var showResult = function showResult() {
+				if (location && temp) {
+					return React.createElement(ResultComponent, { location: location, temp: temp });
+				}
+			};
+
 			return React.createElement(
 				"div",
-				null,
+				{ className: "weather" },
 				React.createElement(
 					"h1",
 					null,
-					"Search for a city:"
+					"Search a city for a temperature:"
 				),
 				React.createElement(InputComponent, { onSearch: this.handleSearch }),
-				React.createElement(ResultComponent, { location: location, temp: temp })
+				showResult()
 			);
 		}
 	});
@@ -21561,7 +21568,6 @@
 	"use strict";
 
 	var React = __webpack_require__(1);
-	__webpack_require__(180);
 
 	var InputComponent = React.createClass({
 		displayName: "InputComponent",
@@ -21575,7 +21581,11 @@
 
 			this.refs.location.value = "";
 
-			this.props.onSearch(location);
+			if (location.trim().length > 1) {
+				this.props.onSearch(location);
+			} else {
+				alert("You have to enter city name");
+			}
 		},
 
 		render: function render() {
@@ -21599,46 +21609,8 @@
 	module.exports = InputComponent;
 
 /***/ },
-/* 180 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(181);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(183)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/sass-loader/index.js!./InputComponent.scss", function() {
-				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/sass-loader/index.js!./InputComponent.scss");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 181 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(182)();
-	// imports
-
-
-	// module
-	exports.push([module.id, "input[type=\"text\"] {\n  height: 30px;\n  font-size: 20px; }\n", ""]);
-
-	// exports
-
-
-/***/ },
+/* 180 */,
+/* 181 */,
 /* 182 */
 /***/ function(module, exports) {
 
@@ -21968,7 +21940,12 @@
 				"Current temperature in ",
 				location,
 				" is ",
-				temp
+				React.createElement(
+					"span",
+					{ className: "temp" },
+					temp,
+					" \xB0C"
+				)
 			)
 		);
 	};
@@ -23490,6 +23467,46 @@
 	    return callback.apply(null, arr);
 	  };
 	};
+
+
+/***/ },
+/* 211 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(212);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(183)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/sass-loader/index.js!./styles.scss", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/sass-loader/index.js!./styles.scss");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 212 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(182)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "body {\n  background-color: #ecf0f1;\n  font-family: sans-serif; }\n\n.weather {\n  max-width: 600px;\n  margin: 0 auto;\n  text-align: center; }\n\n.temp {\n  color: #e74c3c; }\n", ""]);
+
+	// exports
 
 
 /***/ }

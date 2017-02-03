@@ -10,8 +10,8 @@ var SearchComponent = React.createClass({
 
 	getInitialState: function() {
 		return {
-			location: "Beograd",
-			temp: 40
+			location: "",
+			temp: ""
 		}
 	},
 
@@ -33,11 +33,17 @@ var SearchComponent = React.createClass({
 
 		var {location, temp} = this.state;
 
+		var showResult = () => {
+			if (location && temp) {
+				return <ResultComponent location={location} temp={temp} />;
+			}
+		}
+
 		return (
-			<div>
-				<h1>Search for a city:</h1>
+			<div className="weather">
+				<h1>Search a city for a temperature:</h1>
 				<InputComponent onSearch={this.handleSearch} />
-				<ResultComponent location={location} temp={temp} />
+				{showResult()}
 			</div>
 		);
 	}

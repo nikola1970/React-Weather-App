@@ -5,7 +5,7 @@ var ResultComponent = ({location, temp}) => {
 
 	return (
 		<div>
-			<p>Current temperature in {location} is {temp}</p>
+			<p>Current temperature in {location} is <span className="temp">{temp} &deg;C</span></p>
 		</div>
 	)
 
